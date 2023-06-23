@@ -14,20 +14,10 @@ mongoose.set("strictQuery", false);
 
 app.use(express.static(path.join(__dirname, "client", "dist"))); // middleware for deployment  //dist for vite and build for cra
 
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "client", "dist", "index.html")); // middleware for deployment // dist for vite
+mongoose.connect(DB_URL, (err) => {
+  if (err) throw err;
+  console.log("Connected to the Database!");
 });
-
-mongoose.connect(
-  DB_URL,
-  (err) => {
-    if (err) throw err;
-    console.log("Connected to the Database!");
-  },
-  app.listen(port, () => {
-    console.log(`Server is listening on port ${port}`);
-  })
-);
 
 app.use("/api/todo", require("./routes/todoRouter"));
 
@@ -38,3 +28,10 @@ app.use((err, req, res, next) => {
   }
   return res.send({ errMsg: err.message });
 });
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "client", "dist", "index.html")); // middleware for deployment // dist for vite
+}),
+  app.listen(port, () => {
+    console.log(`Server is listening on port ${port}`);
+  });
