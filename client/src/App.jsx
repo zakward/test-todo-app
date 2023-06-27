@@ -24,7 +24,9 @@ function App() {
           <h2>Title: {todo.title}</h2>
           <h3>Description: {todo.description}</h3>
           {/* <h4>Completed: {todo.completed ? "yes" : "no"}</h4> */}
-          <button onClick={() => deleteTodo(todo._id)}>Delete</button>
+          <button className="delete-btn" onClick={() => deleteTodo(todo._id)}>
+            Delete
+          </button>
         </div>
       </>
     );
@@ -92,6 +94,7 @@ function App() {
 
         {formToggle && (
           <form id="addForm" onSubmit={addTodo}>
+            <h1>Add Todo Form</h1>
             <input
               placeholder="add title"
               name="title"
